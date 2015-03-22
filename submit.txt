@@ -1,0 +1,26 @@
+			var emailToList = $(".emailToList").serializeArray();
+			var emailCcList = $(".emailCcList").serializeArray();
+			var toValues = [];
+			var ccValues = [];
+			var toValues = emailListValues(emailToList);
+			var ccValues = emailListValues(emailCcList);
+			var to = {"to" : toValues};
+			var cc = {"cc" : ccValues};
+			var toData = $.param(to);
+			var ccData = $.param(cc);
+			console.log($.param(to));
+			console.log($.param(cc));
+			var sendData = $("#sendData").serialize() + "&"+ toData + "&" + ccData;
+	   		console.log(sendData);
+	   		 $.ajax({
+	   		 	url: "test.php",
+	   		 	type: "post",
+	   		 	datatype: 'json',
+	   		 	data: sendData
+	   		 }).done(function(data, status, xhr){
+	   		 	console.log(data);
+	   		 	var json = $.parseJSON(data);
+	   		 	console.log(json);
+	   		 }).fail(function(xhr, status, error){
+	   		 	console.log(error);
+	   		 });
